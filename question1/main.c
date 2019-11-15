@@ -1,33 +1,41 @@
 #include <stdio.h>
 
-int main()
-{
-    int array[100], i, n, x, f, l, m, flag = 0;
-    printf("Input no. of elements in an array\n");
-    scanf("%d", &n);
-    printf("Input %d value in ascending order\n",n);
-    for(i=0;i<n;i++)
-        scanf("%d",&array[i]);
-    printf("Input the value to be search : ");
-    scanf("%d", &x);
+  void swap(int *xp, int *yp)
+  {
+      int temp = *xp;
+      *xp = *yp;
+      *yp = temp;
+  }
 
-    f=0;l=n-1;
-    while(f<=1)
-    {
-        m=(f+l)/2;
-        if(x==array[m])
-        {
-            flag = 1;
-            break;
-        }
-        else if (x<array[m])
-            l=m-1;
-        else
-            f=m+1;
-    }
-    if(flag=0)
-        printf("%d value not found\n", x);
-    else
-        printf("%d value found at %d position", x, m);
-    return 0;
-}
+  void selectionSort(int arr[], int n)
+  {
+      int i, j, min_idx;
+
+      for (i=0; i < n-1; i++)
+      {
+          min_idx = i;
+          for (j=i+1; j<n; j++)
+              if(arr[j]<arr[min_idx])
+                  min_idx = j;
+
+          swap(&arr[min_idx], &arr[i]);
+      }
+  }
+
+  void printArray(int arr[], int size)
+  {
+      int i;
+      for(i=0; i<size; i++)
+          printf("%d ", arr[i]);
+      printf("\n");
+  }
+
+  int main()
+  {
+      int arr[] = {64, 25, 12, 22, 11};
+      int n = sizeof(arr)/sizeof(arr[0]);
+      selectionSort(arr, n);
+      printf("Sorted array: \n");
+      printArray(arr, n);
+      return 0;
+  }
